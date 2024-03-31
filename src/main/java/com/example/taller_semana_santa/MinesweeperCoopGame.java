@@ -1,5 +1,6 @@
 package com.example.taller_semana_santa;
 
+import com.example.datastructures.LinkedList;
 import com.example.utils.MinesweeperUtil;
 
 import javax.swing.*;
@@ -7,10 +8,9 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
-import java.util.LinkedList;
-
 
 public class MinesweeperCoopGame extends JFrame {
+
   private int initialBombs;
   private int rows;
   private int columns;
@@ -20,14 +20,15 @@ public class MinesweeperCoopGame extends JFrame {
   private JLabel player1BombsLabel = new JLabel("Jugador 1: ");
   private JLabel player2BombsLabel = new JLabel("Jugador 2: ");
   private JPanel infoPanel = new JPanel();
-
+  private JPanel boardPanel;
   private LinkedList<LinkedList<Integer>> board = new LinkedList<>();
   private Integer currentPlayer = 1;
-  private HashMap<Integer, Integer> playersBombs = new HashMap<>() {{
-    put(1, 0);
-    put(2, 0);
-  }};
-
+  private HashMap<Integer, Integer> playersBombs = new HashMap<>() {
+    {
+      put(1, 0);
+      put(2, 0);
+    }
+  };
 
   public MinesweeperCoopGame(int rows, int columns, int bombs) {
     this.rows = rows;
@@ -43,6 +44,7 @@ public class MinesweeperCoopGame extends JFrame {
     drawInfoPanel();
     drawBoard();
   }
+
   private void drawInfoPanel() {
     infoPanel.setLayout(new GridLayout(2, 2));
     infoPanel.add(bombsLabel);
@@ -54,7 +56,7 @@ public class MinesweeperCoopGame extends JFrame {
   }
 
   private void drawBoard() {
-    JPanel boardPanel = new JPanel() {
+    boardPanel = new JPanel() {
       @Override
       protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -64,7 +66,7 @@ public class MinesweeperCoopGame extends JFrame {
             int value = board.get(i).get(j);
             if (value == 2) {
               g.setColor(Color.RED);
-            }else if(value == 1){
+            } else if (value == 1) {
               g.setColor(Color.WHITE);
             } else {
               g.setColor(Color.LIGHT_GRAY);
@@ -104,9 +106,11 @@ public class MinesweeperCoopGame extends JFrame {
       playersBombs.put(currentPlayer, playersBombs.get(currentPlayer) + 1);
 
       if (bombs == 0) {
+        dispose();
+        showResults();
         showEndGameMenu();
       }
-    } else if (board.get(row).get(column) == 1) {
+    } else if (board.get(row).get(column) == 1 || board.get(row).get(column) == 2) {
       System.out.println("Cell already revealed");
     } else {
       board.get(row).set(column, 1);
@@ -132,9 +136,8 @@ public class MinesweeperCoopGame extends JFrame {
         initGame();
         break;
       case 1:
-        MinesweeperSetupForm setupForm = new MinesweeperSetupForm();
-        setupForm.setVisible(true);
         dispose();
+        new MinesweeperSetupForm();
         break;
       case 2:
         dispose();
@@ -142,5 +145,14 @@ public class MinesweeperCoopGame extends JFrame {
       default:
         break;
     }
+  }
+
+  private void showResults() {
+    if (playersBombs.get(1) == playersBombs.get(2)) {
+      JOptionPane.showMessageDialog(null, "Empate!", "Fin del juego", JOptionPane.INFORMATION_MESSAGE);
+      return;
+    }
+    String winner = playersBombs.get(1) > playersBombs.get(2) ? "Jugador 1" : "Jugador 2";
+    JOptionPane.showMessageDialog(null, "El " + winner + " ha ganado!", "Fin del juego", JOptionPane.INFORMATION_MESSAGE);
   }
 }

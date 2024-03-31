@@ -80,8 +80,4 @@ public class DogRegistrationForm extends JFrame {
     if(numDogs == 3) return Color.BLUE;
     return Color.WHITE;
   }
-
-  public static void main(String[] args) {
-    SwingUtilities.invokeLater(() -> new DogRegistrationForm(null,null));
-  }
 }

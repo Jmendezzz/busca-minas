@@ -1,11 +1,12 @@
 package com.example.services.imp;
 
+import com.example.datastructures.LinkedList;
 import com.example.exceptions.CageException;
 import com.example.models.Cage;
 import com.example.models.Dog;
 import com.example.services.CageService;
 
-import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 public class CageServiceImp implements CageService {
@@ -41,18 +42,22 @@ public class CageServiceImp implements CageService {
     for (int i = 0; i < 3; i++) {
       LinkedList<Cage> cageRow = new LinkedList<>();
       for (int j = 0; j < 3; j++) {
-        cageRow.add(new Cage("J" + (i + 1), new LinkedList<>()));
+        cageRow.add(new Cage("J" + (i + 1)));
       }
       cages.add(cageRow);
     }
   }
 
   private Optional<Dog> getDogByNameAndOwnerId(String name, String ownerId) {
-    return cages.stream()
-            .flatMap(LinkedList::stream)
-            .flatMap(c -> c.getDogs().stream())
-            .filter(d -> d.getName().equals(name) && d.getOwnerId().equals(ownerId))
-            .findAny();
+    Optional<Dog> optionalDog;
+
+    for(int i = 0; i < cages.size(); i++) {
+      for(int j = 0; j < cages.get(i).size(); j++) {
+        optionalDog = cages.get(i).get(j).getDogs().stream().filter(d -> d.getName().equals(name) && d.getOwnerId().equals(ownerId)).findAny();
+        if(optionalDog.isPresent()) return optionalDog;
+      }
+    }
+    return Optional.empty();
   }
 }
 

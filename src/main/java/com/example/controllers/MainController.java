@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
+public class MainController {
   private CageService cageService = Singleton.getInstance().getCageService();
   @FXML
   private VBox cageContainer;
@@ -25,29 +25,4 @@ public class MainController implements Initializable {
   private Button playButton;
 
 
-  @Override
-  public void initialize(URL url, ResourceBundle resourceBundle) {
-    try{
-
-      for (LinkedList<Cage> row : cageService.getCages()) {
-        HBox cageContainerRow = new HBox();
-        for (Cage cage : row) {
-          FXMLLoader fxmlLoader = ResourceLoader.loadFXML("cage-card.fxml");
-
-          VBox cageCard = fxmlLoader.load();
-          CageCardController cageCardController = fxmlLoader.getController();
-          cageCardController.setData(cage);
-          cageContainerRow.getChildren().add(cageCard);
-        }
-        cageContainerRow.setAlignment(javafx.geometry.Pos.CENTER);
-        cageContainerRow.setSpacing(10);
-        cageContainer.getChildren().add(cageContainerRow);
-
-      }
-
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
-  }
 }

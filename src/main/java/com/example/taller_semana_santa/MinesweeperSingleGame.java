@@ -1,5 +1,6 @@
 package com.example.taller_semana_santa;
 
+import com.example.datastructures.LinkedList;
 import com.example.models.MinesweeperRecordStat;
 import com.example.utils.FileUtil;
 import com.example.utils.MinesweeperUtil;
@@ -8,7 +9,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.LinkedList;
 
 public class MinesweeperSingleGame extends JFrame {
   private int rows;
@@ -16,7 +16,7 @@ public class MinesweeperSingleGame extends JFrame {
   private int bombs;
   private int score = 0; // Variable para almacenar el puntaje
   private JLabel scoreLabel = new JLabel("Puntuación: " + score);
-  private LinkedList<LinkedList<Integer>> board = new LinkedList<>();
+  private com.example.datastructures.LinkedList<com.example.datastructures.LinkedList<Integer>> board = new LinkedList<>();
 
   private FileUtil<MinesweeperRecordStat> fileUtil = new FileUtil<>();
   private int record;

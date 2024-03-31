@@ -1,5 +1,6 @@
 package com.example.taller_semana_santa;
 
+import com.example.datastructures.LinkedList;
 import com.example.models.Cage;
 import com.example.services.CageService;
 import com.example.services.Singleton;
@@ -8,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.LinkedList;
+
 
 public class MainMenu extends JFrame {
   private JPanel cageContainer;
@@ -53,11 +54,14 @@ public class MainMenu extends JFrame {
       LinkedList<Cage> row = cages.get(i);
       JPanel cageContainerRow = new JPanel();
       cageContainerRow.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-      for (Cage cage : row) {
+      for (int j = 0; j < row.size(); j++) {
         JPanel cageCard = new JPanel();
         cageCard.setPreferredSize(new Dimension(200, 100));
         cageCard.setBackground(Color.WHITE);
+
+        Cage cage = row.get(j);
         JLabel cageNameLabel = new JLabel(cage.getName());
+
         cageNameLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         cageCard.add(cageNameLabel);
         cageCard.addMouseListener(new MouseAdapter() {

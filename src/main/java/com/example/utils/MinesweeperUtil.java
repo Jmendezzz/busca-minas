@@ -1,6 +1,6 @@
 package com.example.utils;
 
-import java.util.LinkedList;
+import com.example.datastructures.LinkedList;
 
 public class MinesweeperUtil {
   public static void initializeBoard(LinkedList<LinkedList<Integer>> board, int rows, int columns, int bombs) {

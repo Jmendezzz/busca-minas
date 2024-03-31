@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MinesweeperSetupForm extends JFrame {
+  public class MinesweeperSetupForm extends JFrame {
   private JTextField playersField;
   private JTextField rowsField;
   private JTextField columnsField;
@@ -41,12 +41,7 @@ public class MinesweeperSetupForm extends JFrame {
     mainPanel.add(bombsField);
 
     JButton startButton = new JButton("Aceptar");
-    startButton.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        startGame();
-      }
-    });
+    startButton.addActionListener(e -> startGame());
     mainPanel.add(startButton);
 
     add(mainPanel);
@@ -72,11 +67,9 @@ public class MinesweeperSetupForm extends JFrame {
         return;
       }
       if(numPlayers > 1){
-        MinesweeperCoopGame game = new MinesweeperCoopGame(rows, columns, bombs);
-        game.setVisible(true);
+        new MinesweeperCoopGame(rows, columns, bombs);
       }else{
-        MinesweeperSingleGame game = new MinesweeperSingleGame(rows, columns, bombs);
-        game.setVisible(true);
+        new MinesweeperSingleGame(rows, columns, bombs);
       }
 
       dispose(); // Cierra el formulario

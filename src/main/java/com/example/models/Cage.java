@@ -1,5 +1,6 @@
 package com.example.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cage {
@@ -8,10 +9,10 @@ public class Cage {
 
   private static int cageCounter = 0;
 
-  public Cage(String name, List<Dog> dogs) {
+  public Cage(String name) {
     cageCounter++;
     this.name = name.concat("-" + "10" + cageCounter);
-    this.dogs = dogs;
+    this.dogs = new ArrayList<>();
   }
 
   public String getName() {
